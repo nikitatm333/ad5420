@@ -594,6 +594,10 @@ static int ad5420_probe(struct spi_device *spi)
     case AD5420_RANGE_0mA_20mA: ctrl |= 0x6; break;
     case AD5420_RANGE_0mA_24mA: ctrl |= 0x7; break;
     }
+    // Debug:
+    dev_info(&spi->dev, "AD5420 Control Register Setting: 0x%04x\n", ctrl);
+    dev_info(&spi->dev, "Range bits: %d%d%d (should be 101 for 4-20mA)\n",
+         (ctrl >> 2) & 1, (ctrl >> 1) & 1, ctrl & 1);
 
     ctrl |= AD5420_CTRL_OUTEN;
 
